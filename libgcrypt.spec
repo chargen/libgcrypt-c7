@@ -1,4 +1,4 @@
-Name: libgcrypt
+Name: libgcrypt16
 Version: 1.6.6
 Release: 1%{?dist}
 URL: http://www.gnupg.org/
@@ -69,6 +69,7 @@ Requires(pre): /sbin/install-info
 Requires(post): /sbin/install-info
 Requires: libgpg-error-devel
 Requires: %{name} = %{version}-%{release}
+Conflicts: libgcrypt-devel
 
 %description
 Libgcrypt is a general purpose crypto library based on the code used
@@ -80,7 +81,7 @@ in GNU Privacy Guard.  This package contains files needed to develop
 applications using libgcrypt.
 
 %prep
-%setup -q
+%setup -q -n libgcrypt-%{version}
 %{SOURCE3}
 %patch2 -p1 -b .use-fipscheck
 %patch5 -p1 -b .tests
@@ -194,7 +195,7 @@ exit 0
 
 %files devel
 %defattr(-,root,root,-)
-%{_bindir}/%{name}-config
+%{_bindir}/libgcrypt-config
 %{_bindir}/dumpsexp
 %{_bindir}/hmac256
 %{_bindir}/mpicalc
@@ -208,6 +209,9 @@ exit 0
 %license COPYING
 
 %changelog
+* Mon Feb 20 2017 Toni Spets - 1.6.6-1.el7.centos
+- Rename package to libgcrypt16
+
 * Wed Aug 17 2016 Tomáš Mráz <tmraz@redhat.com> 1.6.6-1
 - new upstream version with important security fix (CVE-2016-6316)
 
